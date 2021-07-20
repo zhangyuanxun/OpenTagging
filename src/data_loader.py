@@ -21,11 +21,23 @@ def convert_examples_to_features(examples, label_list, tokenizer, max_seq_length
 
         # align label with word token
         word_ids = context_features.word_ids(batch_index=0)
-        for wid in word_ids:
-            if wid is None:
-                label_ids.append(-100)
+        for i in range(len(word_ids)):
+            wid = word_ids[i]
+            iid = context_features['input_ids'][i]
+            if iid == tokenizer.cls_token_id:
+                label_ids.append(label_map['[CLS]'])
+            elif iid == tokenizer.sep_token_id:
+                label_ids.append(label_map['[SEP]'])
+            elif wid is None:
+                label_ids.append(label_map['O'])
             else:
-                label_ids.append(label_map[example.labels[wid]])
+                # deal with sub-words problem
+                if i > 0 and wid == word_ids[i - 1] and (label_ids[-1] == label_map['B-a'] or
+                                                         label_ids[-1] == label_map['I-a']):
+                    label_ids.append(label_map['I-a'])
+                else:
+                    label_ids.append(label_map[example.labels[wid]])
+
         context_features['label_ids'] = label_ids
         attribute_features = tokenizer(example.attributes, is_split_into_words=True,
                                        max_length=max_attr_length, padding="max_length", truncation=True)
@@ -63,6 +75,8 @@ def load_examples(args, tokenizer, data_type):
         examples = processor.get_train_examples(args.data_dir)
     elif data_type == "dev":
         examples = processor.get_dev_examples(args.data_dir)
+    elif data_type == 'test' and args.debug:
+        examples = processor.get_debug_examples(args.data_dir)
     else:
         examples = processor.get_test_examples(args.data_dir)
 
@@ -73,22 +87,6 @@ def load_examples(args, tokenizer, data_type):
 
     if args.local_rank == 0 and data_type == "train":
         torch.distributed.barrier()
-
-    # # convert all features to tensor
-    # context_all_input_ids = torch.tensor([f.context_input_ids for f in features], dtype=torch.long)
-    # context_all_input_mask = torch.tensor([f.context_input_mask for f in features], dtype=torch.long)
-    # context_all_type_ids = torch.tensor([f.context_type_ids for f in features], dtype=torch.long)
-    # context_all_input_len = torch.tensor([f.context_input_len for f in features], dtype=torch.long)
-    #
-    # attribute_all_input_ids = torch.tensor([f.attribute_input_ids for f in features], dtype=torch.long)
-    # attribute_all_input_mask = torch.tensor([f.attribute_input_mask for f in features], dtype=torch.long)
-    # attribute_all_type_ids = torch.tensor([f.attribute_type_ids for f in features], dtype=torch.long)
-    # attribute_all_len = torch.tensor([f.attribute_input_len for f in features], dtype=torch.long)
-    #
-    # all_label_ids = torch.tensor([f.label_ids for f in features], dtype=torch.long)
-    # dataset = TensorDataset(context_all_input_ids, context_all_input_mask, context_all_type_ids, context_all_input_len,
-    #                         attribute_all_input_ids, attribute_all_input_mask, attribute_all_type_ids,
-    #                         attribute_all_len, all_label_ids)
 
     def collate_fn(batch):
         def convert_to_tensor(key):
@@ -107,7 +105,7 @@ def load_examples(args, tokenizer, data_type):
                    attribute_input_mask=convert_to_tensor('attribute_input_mask'),
                    attribute_type_ids=convert_to_tensor('attribute_type_ids'),
                    attribute_input_len=convert_to_tensor('attribute_input_len'),
-                   label_ids=convert_to_tensor('attribute_input_len'))
+                   label_ids=convert_to_tensor('label_ids'))
 
         return ret
 

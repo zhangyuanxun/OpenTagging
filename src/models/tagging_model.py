@@ -32,7 +32,8 @@ class Tagging(BertPreTrainedModel):
         self.ln = LayerNorm(self.config.hidden_size * 2)
         self.attention = Attention()
         self.classifier = nn.Linear(self.config.hidden_size * 2, len(label_list))
-        self.crf = CRF(tag_list=label_list, device=device)
+        label2id = {k: i for i, k in enumerate(label_list)}
+        self.crf = CRF(tagset_size=len(label_list), tag_dictionary=label2id, device=device, is_bert=True)
         self.init_weights()
 
     def forward(self, context_input_ids=None, context_input_mask=None, context_type_ids=None,
@@ -56,7 +57,8 @@ class Tagging(BertPreTrainedModel):
         outputs = self.ln(outputs)
         outputs = self.dropout(outputs)
         logits = self.classifier(outputs)
-        outputs = (logits,)
-        if label_ids:
-            loss = self.crf.compute_loss(logits, labels_ids=label_ids, lengths=context_input_len)
+        if label_ids is not None:
+            loss = self.crf.calculate_loss(logits, tag_list=label_ids, lengths=context_input_len)
+
+        return {'loss': loss, 'logits': logits}
 

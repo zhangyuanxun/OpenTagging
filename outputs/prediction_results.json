@@ -1,0 +1,302 @@
+[
+    {
+        "context": "mens womens riding cycling socks bicycle sports socks breathable anti - sweat socks basketball football socks",
+        "attribute": "hose height",
+        "true value": "socks",
+        "predict value": ""
+    },
+    {
+        "context": "world golden boot award trophy trophy cup football soccer fans souvenirs award collectible the best player free shipping",
+        "attribute": "name",
+        "true value": "world golden boot award trophy",
+        "predict value": ""
+    },
+    {
+        "context": "16. 5 & quot ; viola flame maple fine sound high quality # 415mm",
+        "attribute": "model number",
+        "true value": "16. 5",
+        "predict value": ""
+    },
+    {
+        "context": "seapesca minnow fishing lure 30mm 1. 6g topwater hard bait japan crankbait carp fishing wobblers artificial tackle ya20",
+        "attribute": "weight",
+        "true value": "1. 6g",
+        "predict value": ""
+    },
+    {
+        "context": "cycling glasses mtb eyewear unisex outdoor sunglass bike cycling glasses bicycle sports sun glasses riding goggles",
+        "attribute": "lenses material",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "factory custom 41 inch 20 frets rounded corner 45 natural wood folk acoustic guitar with red pearl pickguard",
+        "attribute": "tone position",
+        "true value": "20",
+        "predict value": ""
+    },
+    {
+        "context": "luontnor professional men soccer boots brand long spikes soccer shoes outdoor lawn mens football boots training chuteiras",
+        "attribute": "types of hobnail",
+        "true value": "long spikes",
+        "predict value": ""
+    },
+    {
+        "context": "150x hd protable astronomical telescope tripod powerful terrestrial space monocular telescope moon watching binoculars",
+        "attribute": "type",
+        "true value": "monocular",
+        "predict value": ""
+    },
+    {
+        "context": "spring autumn men shoes for adult breathable male shoes brand black summer running men sneakers chaussure homme c8101",
+        "attribute": "model number",
+        "true value": "c8101",
+        "predict value": ""
+    },
+    {
+        "context": "golden sapling women & # 39 ; s sport shoes woman sneakers breathable air mesh rubber women badminton shoes black sports women & # 39 ; s sneakers",
+        "attribute": "feature",
+        "true value": "breathable",
+        "predict value": ""
+    },
+    {
+        "context": "polar fire new winter thermal fleece windproof running jackets jogging coat men long sleeve thicken breathable sportswear ydf102",
+        "attribute": "sport type",
+        "true value": "running",
+        "predict value": ""
+    },
+    {
+        "context": "official original nike air max dominate ep dmx men & # 39 ; s basketball shoes sneakers high top breathable lace - up leisure cozy 89765",
+        "attribute": "gender",
+        "true value": "men",
+        "predict value": ""
+    },
+    {
+        "context": "9 colors unisex anti - fog ski eyewear glasses windproof anti - sand snow snowboard ski goggles eyewear for outdoor activities new",
+        "attribute": "item type",
+        "true value": "eyewear",
+        "predict value": ""
+    },
+    {
+        "context": "original vans men & # 39 ; s old skool skateboarding shoes sports shoes canvas shoes sneakers shoes outdoor brand designer vn0a38g1",
+        "attribute": "athletic shoe type",
+        "true value": "skateboarding shoes",
+        "predict value": ""
+    },
+    {
+        "context": "5 pcs / set fishing float fluorescent buoyance bobber stick wooden high quality",
+        "attribute": "product type",
+        "true value": "fishing float",
+        "predict value": ""
+    },
+    {
+        "context": "uv 5 6 8 person huge awning autonatic pergola windproof aluminum rod party park hiking beach fishing family outdoor camping tent",
+        "attribute": "style",
+        "true value": "outdoor",
+        "predict value": ""
+    },
+    {
+        "context": "135x30mm outdoor waterproof storage box aluminum alloy edc survival pill / match bottle case container emergency toolkits",
+        "attribute": "material",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "onitsuka tiger mexico 66 sheepskin classics shoes men and women sneakers badminton shoes thl7c2 - 0187 size36 - 44",
+        "attribute": "gender",
+        "true value": "men",
+        "predict value": ""
+    },
+    {
+        "context": "nike original new arrival authentic men & # 39 ; s lebron soldier xi lbj basketball shoes breathable sports sneakers 897645 - 402",
+        "attribute": "level of practice",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "led electronic fishing float + battery night vision electric float light battery fishing tackle luminous electronic float yf12",
+        "attribute": "product type",
+        "true value": "fishing float",
+        "predict value": ""
+    },
+    {
+        "context": "200 * 200cm outdoor picnic waterproof beach camping picnic moistureproof mat blanket mattress portable ultralight folding cotton",
+        "attribute": "brand name",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "seven joe one piece hollow swimsuit female high cut out solid color rompers womens overalls swimwear tights monokini bikini",
+        "attribute": "brand name",
+        "true value": "seven joe",
+        "predict value": ""
+    },
+    {
+        "context": "hot sale nike air jordan 1 mid hare aj1 bugs bunny women & # 39 ; s basketball shoes sneakers, original outdoor sports shoes 719551",
+        "attribute": "model number",
+        "true value": "719551",
+        "predict value": ""
+    },
+    {
+        "context": "gsou snow jacket women windproof waterproof ski jackets women outdoor thermal jackets climbing snow skiing clothes",
+        "attribute": "model number",
+        "true value": "gsou snow",
+        "predict value": ""
+    },
+    {
+        "context": "outad 2pcs / set 405cm outdoor camping lightweight tent pole rod bar tool spare tent supporting pole accessoriess aluminum alloy",
+        "attribute": "brand name",
+        "true value": "outad",
+        "predict value": ""
+    },
+    {
+        "context": "frwanf 100m 150lb 8x fishing brand super strong japan multifilament pe braided fishing line 8 strand 0. 8mm black",
+        "attribute": "brand name",
+        "true value": "frwanf",
+        "predict value": ""
+    },
+    {
+        "context": "tooyful 25 pieces of set leather tenor saxophone pads for yamaha saxophone parts",
+        "attribute": "brand name",
+        "true value": "tooyful",
+        "predict value": ""
+    },
+    {
+        "context": "wholesale salomon speed cross 4 cs shoes women cross - country red running shoes female sneakers women athletic shoes sport shoes",
+        "attribute": "model number",
+        "true value": "cross 4 cs",
+        "predict value": ""
+    },
+    {
+        "context": "wen platform sneaker slip on men women strapless shoes union jack flag design hand painted canvas shoes design espadrilles flat",
+        "attribute": "feature 1",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "hot wood style bundle coins display box case for slab certified coins storage boxes jewelry box board games home storage case",
+        "attribute": "model number",
+        "true value": "board games",
+        "predict value": ""
+    },
+    {
+        "context": "jazz vaiten jesus shuttlesworth # 34 lincoln basketball jersey he got game all stitched white / blue men breathable jersey",
+        "attribute": "fabric type",
+        "true value": "jersey",
+        "predict value": ""
+    },
+    {
+        "context": "msstor 2018 women running shoes casual fashion walking ladies sport shoes for woman brand summer breathable women & # 39 ; s sneakers",
+        "attribute": "upper material",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "china guitar firehawk oem high quality g custom guitar explorer electric guitar purple color gold hardware, free shipping",
+        "attribute": "tone position",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "gradient color gym sport coat women slim fit zipper running jacket hooded fitness workout jersey with thumb holes",
+        "attribute": "collar",
+        "true value": "hooded",
+        "predict value": ""
+    },
+    {
+        "context": "women bikini tops push up halter swimsuit bra bathing suit stripe bikini push up swimwear top two - piece separates swimming suit",
+        "attribute": "swimsuit bra",
+        "true value": "two - piece separates swimming suit",
+        "predict value": ""
+    },
+    {
+        "context": "# 20 markelle fultz basketball jerseys dematha catholic high school jerseys",
+        "attribute": "sport type",
+        "true value": "basketball",
+        "predict value": ""
+    },
+    {
+        "context": "ttygj golf shoes women waterproof leather shoes zapatos de mujer sneakers on a platform golf hombre free shipping",
+        "attribute": "athletic shoe type",
+        "true value": "golf shoes",
+        "predict value": ""
+    },
+    {
+        "context": "original new arrival converse men & # 39 ; s skateboarding shoes leather sneakers",
+        "attribute": "athletic shoe type",
+        "true value": "skateboarding shoes",
+        "predict value": ""
+    },
+    {
+        "context": "outdoor soccer boots high quality men sports training boost waterproof lace - up football shoes sneakers men",
+        "attribute": "style",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "women yoga set for running 3 pcs t - shirt fitness bra sports wear gym clothing women workout set sports suit tracksuit sports",
+        "attribute": "gender",
+        "true value": "women",
+        "predict value": ""
+    },
+    {
+        "context": "original noeby infinite ii - pe8b1 150m 8 strands yellow fishing line high visibility braid line for fishing floating line",
+        "attribute": "meters",
+        "true value": "150m",
+        "predict value": ""
+    },
+    {
+        "context": "children two - piece swimwear 2018 korean new arrivals sharks printed beach boys swimsuit kids sunscreen bathing suit 62781",
+        "attribute": "model number",
+        "true value": "62781",
+        "predict value": ""
+    },
+    {
+        "context": "men & # 39 ; s soccer shoes football boots sneakers breathable plus size for male outdoor trainning shoes",
+        "attribute": "shoe width",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "new sports men women sunglasses road cycling eyewear mountain bike bicycle riding protection goggles outdoor eyewear sun glasses",
+        "attribute": "item type",
+        "true value": "eyewear",
+        "predict value": ""
+    },
+    {
+        "context": "new 2018 baby girl children swimming suit korean bikini kids girls swimsuit 3 pcs long - sleeved sun protection swimwear sw089",
+        "attribute": "applicable sex",
+        "true value": "girls",
+        "predict value": ""
+    },
+    {
+        "context": "daddy chen women summer swimsuit lace beach bikini cover up 3 / 4 sleeve swimwear white beach tunic shirt sexy bikini dress",
+        "attribute": "color",
+        "true value": "",
+        "predict value": ""
+    },
+    {
+        "context": "men casual dome baseball cap letters cap adjustable fashion available colors variety",
+        "attribute": "pattern type",
+        "true value": "letters",
+        "predict value": ""
+    },
+    {
+        "context": "original new arrival authentic nike air vapormax flyknit 2. 0 w women & # 39 ; s running shoes sport sneakers good quality 9428",
+        "attribute": "athletic shoe type",
+        "true value": "running shoes",
+        "predict value": ""
+    },
+    {
+        "context": "adidas eqt bold tt original new arrival mens running jacket breathable quick dry anti - pilling support sports for man # br3827",
+        "attribute": "gender",
+        "true value": "mens",
+        "predict value": ""
+    },
+    {
+        "context": "kakaforsa sexy lace beach cover up female tunic swimwear crochet bikini cover ups tassels cardigan bathing suit cover - ups",
+        "attribute": "size",
+        "true value": "",
+        "predict value": ""
+    }
+]

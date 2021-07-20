@@ -66,7 +66,7 @@ class TaggingProcessor(object):
         return self._create_examples(self._read_data(os.path.join(data_dir, "opentags.test")), 'test')
 
     def get_labels(self):
-        return ['B', 'I', 'O']
+        return ['B-a', 'I-a', 'O', '[CLS]', '[SEP]']
 
     def _word_tokenize(self, sentence):
         return nltk.word_tokenize(sentence)
@@ -106,10 +106,10 @@ class TaggingProcessor(object):
                     assert value in context
                     i, j = self._get_value_offset(context_words, value)
                     if i == j:
-                        labels[i] = 'B'
+                        labels[i] = 'B-a'
                     else:
-                        labels[i] = 'B'
-                        labels[i + 1: j] = ['I'] * (j - i)
+                        labels[i] = 'B-a'
+                        labels[i + 1: j] = ['I-a'] * (j - i)
 
                 data.append({"context": context_words, "labels": labels, 'attributes': attribute_words})
 

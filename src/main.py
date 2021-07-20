@@ -12,6 +12,7 @@ from transformers.models.bert.modeling_bert import (
 )
 from trainer import Trainer
 from transformers import WEIGHTS_NAME
+from evaluate import evaluate
 
 
 def argument_parser():
@@ -24,7 +25,7 @@ def argument_parser():
                       help="Bert pre-trained model selected in the list: bert-base-uncased, "
                            "bert-large-uncased, bert-base-cased, bert-base-multilingual, bert-base-chinese.")
     args.add_argument("--num_train_epochs",
-                      default=2.0,
+                      default=50,
                       type=float,
                       help="Total number of training epochs to perform.")
     args.add_argument("--local_rank",
@@ -84,6 +85,10 @@ def argument_parser():
                       type=str,
                       help="Warmup schedule.")
     args.add_argument("--train_batch_size",
+                      default=32,
+                      type=int,
+                      help="Total batch size for training.")
+    args.add_argument("--eval_batch_size",
                       default=32,
                       type=int,
                       help="Total batch size for training.")
@@ -157,6 +162,23 @@ def run():
 
         trainer = Trainer(args, model=model, dataloader=train_dataset, num_train_steps=num_train_steps)
         trainer.train()
+
+    # save the model
+    if args.do_train and args.local_rank in (0, -1):
+        print("[RANK: {}]: Saving the model checkpoint to folder {}".format(args.local_rank, args.output_dir))
+        torch.save(model.state_dict(), os.path.join(args.output_dir, WEIGHTS_NAME))
+
+    if args.do_eval:
+        results = {}
+        # load the test datasets
+        dataloader, labels_list = load_examples(args, tokenizer, 'test')
+
+        print("load the model...")
+        torch.cuda.empty_cache()
+        model = Tagging.from_pretrained(args.bert_model, config=config, label_list=labels_list, device=args.device)
+        model.load_state_dict(torch.load(os.path.join(args.output_dir, WEIGHTS_NAME), map_location="cpu"))
+        model.to(args.device)
+        evaluate(args, model, tokenizer, dataloader, labels_list)
 
 
 if __name__ == "__main__":
