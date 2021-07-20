@@ -16,7 +16,6 @@ def evaluate(args, model, tokenizer, dataloader, labels_list):
     eval_loss = 0.0
     nb_eval_steps = 0
     all_predictions = defaultdict(dict)
-    all_predict_label = defaultdict(dict)
     all_labels = defaultdict(dict)
     all_context_input_ids = defaultdict(dict)
     all_attribute_input_ids = defaultdict(dict)
@@ -38,7 +37,6 @@ def evaluate(args, model, tokenizer, dataloader, labels_list):
 
         for i in range(len(pred_labels)):
             all_predictions[idx] = get_entities(pred_labels[i], args.id2label, 'bio')
-            all_predict_label[idx] = pred_labels[i]
             all_labels[idx] = get_entities(true_label_ids[i], args.id2label, 'bio')
             all_context_input_ids[idx] = context_input_ids[i]
             all_attribute_input_ids[idx] = attribute_input_ids[i]
@@ -64,7 +62,6 @@ def evaluate(args, model, tokenizer, dataloader, labels_list):
 
     for i in range(idx):
         predictions = all_predictions[i]
-        pred_label = all_predict_label[i]
         labels = all_labels[i]
         context_input_ids = all_context_input_ids[i]
         attribute_input_ids = all_attribute_input_ids[i]
@@ -84,8 +81,7 @@ def evaluate(args, model, tokenizer, dataloader, labels_list):
         attribute = extract_text_from_bert_padding(attribute)
         prediction_results.append({'context': context, 'attribute': attribute,
                                    'true value': ' '.join(true_label_tokens),
-                                   'predict value': ' '.join(pred_label_tokens),
-                                   'pred_label': pred_label})
+                                   'predict value': ' '.join(pred_label_tokens)})
 
     eval_loss = eval_loss / nb_eval_steps
     eval_info, entity_info = metric.result()
