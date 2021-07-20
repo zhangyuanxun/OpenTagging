@@ -66,7 +66,7 @@ def get_entity_bio(seq, id2label):
 
         if tag == '[SEP]' or tag == '[CLS]':
             continue
-            
+
         if tag.startswith("B-"):
             if chunk[2] != -1:
                 chunks.append(chunk)

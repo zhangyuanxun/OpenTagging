@@ -81,7 +81,8 @@ def evaluate(args, model, tokenizer, dataloader, labels_list):
         attribute = extract_text_from_bert_padding(attribute)
         prediction_results.append({'context': context, 'attribute': attribute,
                                    'true value': ' '.join(true_label_tokens),
-                                   'predict value': ' '.join(pred_label_tokens)})
+                                   'predict value': ' '.join(pred_label_tokens),
+                                   'predictions': predictions})
 
     eval_loss = eval_loss / nb_eval_steps
     eval_info, entity_info = metric.result()

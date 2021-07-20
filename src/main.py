@@ -25,7 +25,7 @@ def argument_parser():
                       help="Bert pre-trained model selected in the list: bert-base-uncased, "
                            "bert-large-uncased, bert-base-cased, bert-base-multilingual, bert-base-chinese.")
     args.add_argument("--num_train_epochs",
-                      default=50,
+                      default=1,
                       type=float,
                       help="Total number of training epochs to perform.")
     args.add_argument("--local_rank",
