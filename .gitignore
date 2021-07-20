@@ -12,6 +12,7 @@ __pycache__
 pytorch_model.bin
 
 # outputs files
-results.json
-test_predictions.txt
+performance_results.json
+prediction_results.json
+
 test.py
