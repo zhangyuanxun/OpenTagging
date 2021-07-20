@@ -63,6 +63,10 @@ def get_entity_bio(seq, id2label):
     for indx, tag in enumerate(seq):
         if not isinstance(tag, str):
             tag = id2label[tag]
+
+        if tag == '[SEP]' or tag == '[CLS]':
+            continue
+            
         if tag.startswith("B-"):
             if chunk[2] != -1:
                 chunks.append(chunk)
