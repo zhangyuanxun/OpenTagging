@@ -4,29 +4,25 @@ import torch.nn.functional as F
 
 
 class CRF(nn.Module):
-    def __init__(self, num_tags, tag2id, device, batch_first=True):
+    def __init__(self, num_tags, tag2id, batch_first=True):
         super(CRF, self).__init__()
         self.num_tags = num_tags
         self.tag2id = tag2id
-        self.device = device
         self.START_TAG = "[CLS]"
         self.STOP_TAG = "[SEP]"
         self.batch_first = batch_first
 
         self.transitions = nn.Parameter(torch.randn(num_tags, num_tags))
-        self.transitions.detach()[self.tag2id[self.START_TAG], :] = -10000
-        self.transitions.detach()[:, self.tag2id[self.STOP_TAG]] = -10000
         self.start_transitions = nn.Parameter(torch.empty(num_tags))
         self.end_transitions = nn.Parameter(torch.empty(num_tags))
-
-        # self.transitions = self.transitions.to(device)
-        # self.start_transitions = self.start_transitions.to(device)
-        # self.end_transitions = self.start_transitions.to(device)
 
         # initialize parameters
         nn.init.uniform_(self.start_transitions, -0.1, 0.1)
         nn.init.uniform_(self.end_transitions, -0.1, 0.1)
         nn.init.uniform_(self.transitions, -0.1, 0.1)
+
+        self.transitions.detach()[self.tag2id[self.START_TAG], :] = -10000
+        self.transitions.detach()[:, self.tag2id[self.STOP_TAG]] = -10000
 
     def _forward_alg(self, emissions, mask=None):
         seq_length = emissions.size(0)
@@ -145,20 +141,3 @@ class CRF(nn.Module):
             tags_list.append([id2tag[tag] for tag in tags])
 
         return tags_list
-
-
-if __name__ == "__main__":
-    num_tags = 5
-    tag_list = ['B-a', 'I-a', 'O', '[CLS]', '[SEP]']
-    tag2id = {t: i for i, t in enumerate(tag_list)}
-    id2tag = {i:t for i, t in enumerate(tag_list)}
-    batch_size = 3
-    seq_length = 7
-    emissions = torch.randn(batch_size, seq_length, num_tags)
-    tags = torch.tensor([[3, 1, 2, 2, 0, 1, 4], [3, 2, 0, 2, 1, 2, 4], [3, 0, 1, 2, 0, 1, 4]], dtype=torch.long)
-    # tags = torch.tensor([[0, 1, 2, 0, 0, 1, 2]], dtype=torch.long)
-    model = CRF(num_tags=num_tags, tag2id=tag2id, device='cpu')
-    seq_len_tensor = torch.tensor([[seq_length], [seq_length], [seq_length]], dtype=torch.long)
-    model.obtain_labels(emissions, id2tag, seq_length)
-    #model.calculate_loss(emissions, tags)
-    #model.viterbi_decode(emissions)

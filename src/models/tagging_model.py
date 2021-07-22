@@ -33,7 +33,7 @@ class Tagging(BertPreTrainedModel):
         self.attention = Attention()
         self.classifier = nn.Linear(self.config.hidden_size * 2, len(label_list))
         label2id = {k: i for i, k in enumerate(label_list)}
-        self.crf = CRF(num_tags=len(label_list), tag2id=label2id, device=device, batch_first=True)
+        self.crf = CRF(num_tags=len(label_list), tag2id=label2id, batch_first=True)
         self.init_weights()
 
     def forward(self, context_input_ids=None, context_input_mask=None, context_type_ids=None,
