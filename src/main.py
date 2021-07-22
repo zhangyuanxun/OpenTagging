@@ -85,7 +85,7 @@ def argument_parser():
                       type=str,
                       help="Warmup schedule.")
     args.add_argument("--train_batch_size",
-                      default=32,
+                      default=16,
                       type=int,
                       help="Total batch size for training.")
     args.add_argument("--eval_batch_size",

@@ -29,7 +29,7 @@ def evaluate(args, model, tokenizer, dataloader, labels_list):
             outputs = model(**inputs)
             logits = outputs['logits']
             eval_loss += outputs['loss'].item()
-            pred_labels, _ = model.crf.obtain_labels(logits, args.id2label, inputs['context_input_len'])
+            pred_labels = model.crf.obtain_labels(logits, args.id2label, inputs['context_input_mask'])
 
         true_label_ids = inputs['label_ids'].cpu().numpy().tolist()
         context_input_ids = inputs['context_input_ids']
