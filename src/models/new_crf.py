@@ -11,6 +11,7 @@ class CRF(nn.Module):
         self.device = device
         self.START_TAG = "[CLS]"
         self.STOP_TAG = "[SEP]"
+        self.batch_first = batch_first
 
         self.transitions = nn.Parameter(torch.randn(num_tags, num_tags))
         self.transitions.detach()[self.tag2id[self.START_TAG], :] = -10000
@@ -18,16 +19,14 @@ class CRF(nn.Module):
         self.start_transitions = nn.Parameter(torch.empty(num_tags))
         self.end_transitions = nn.Parameter(torch.empty(num_tags))
 
+        self.transitions = self.transitions.to(device)
+        self.start_transitions = self.start_transitions.to(device)
+        self.end_transitions = self.start_transitions.to(device)
+
         # initialize parameters
         nn.init.uniform_(self.start_transitions, -0.1, 0.1)
         nn.init.uniform_(self.end_transitions, -0.1, 0.1)
         nn.init.uniform_(self.transitions, -0.1, 0.1)
-
-        self.start_transitions = self.start_transitions.to(device)
-        self.end_transitions = self.start_transitions.to(device)
-
-        self.transitions = self.transitions.to(device)
-        self.batch_first = batch_first
 
     def _forward_alg(self, emissions, mask=None):
         seq_length = emissions.size(0)
