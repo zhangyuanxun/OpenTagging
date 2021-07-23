@@ -11,6 +11,7 @@ from .layers import Attention
 #from .crf import CRF
 from .new_crf import CRF
 
+
 class Tagging(BertPreTrainedModel):
     def __init__(self, config, label_list, device):
         super(Tagging, self).__init__(config)
