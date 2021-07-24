@@ -13,13 +13,12 @@ class CRF(nn.Module):
         self.batch_first = batch_first
 
         self.transitions = nn.Parameter(torch.randn(num_tags, num_tags))
-        self.start_transitions = nn.Parameter(torch.empty(num_tags))
-        self.end_transitions = nn.Parameter(torch.empty(num_tags))
+        self.start_transitions = nn.Parameter(torch.randn(num_tags))
+        self.end_transitions = nn.Parameter(torch.randn(num_tags))
 
         # initialize parameters
-        nn.init.uniform_(self.start_transitions, -0.1, 0.1)
-        nn.init.uniform_(self.end_transitions, -0.1, 0.1)
-        nn.init.uniform_(self.transitions, -0.1, 0.1)
+        # nn.init.uniform_(self.start_transitions, -0.1, 0.1)
+        # nn.init.uniform_(self.end_transitions, -0.1, 0.1)
 
         self.transitions.detach()[self.tag2id[self.START_TAG], :] = -10000
         self.transitions.detach()[:, self.tag2id[self.STOP_TAG]] = -10000
