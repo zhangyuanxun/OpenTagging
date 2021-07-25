@@ -8,8 +8,8 @@ from transformers.models.bert.modeling_bert import (
     BertPreTrainedModel,
 )
 from .layers import Attention
-#from .crf import CRF
-from .new_crf import CRF
+from .crf import CRF
+#from .new_crf import CRF
 
 
 class Tagging(BertPreTrainedModel):
@@ -34,7 +34,8 @@ class Tagging(BertPreTrainedModel):
         self.attention = Attention()
         self.classifier = nn.Linear(self.config.hidden_size * 2, len(label_list))
         label2id = {k: i for i, k in enumerate(label_list)}
-        self.crf = CRF(num_tags=len(label_list), tag2id=label2id, batch_first=True)
+        # self.crf = CRF(num_tags=len(label_list), tag2id=label2id, batch_first=True)
+        self.crf = CRF(tagset_size=len(label_list), tag_dictionary=label2id, device=device, is_bert=True)
         self.init_weights()
 
     def forward(self, context_input_ids=None, context_input_mask=None, context_type_ids=None,
@@ -59,7 +60,7 @@ class Tagging(BertPreTrainedModel):
         outputs = self.dropout(outputs)
         logits = self.classifier(outputs)
         if label_ids is not None:
-            loss = self.crf.calculate_loss(emissions=logits, tags=label_ids, mask=context_input_mask)
-
+            # loss = self.crf.calculate_loss(emissions=logits, tags=label_ids, mask=context_input_mask)
+            loss = self.crf.calculate_loss(logits, tag_list=label_ids, lengths=context_input_len)
         return {'loss': loss, 'logits': logits}
 
