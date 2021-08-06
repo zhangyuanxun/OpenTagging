@@ -59,6 +59,7 @@ class Tagging(BertPreTrainedModel):
         outputs = self.ln(outputs)
         outputs = self.dropout(outputs)
         logits = self.classifier(outputs)
+        loss = None
         if label_ids is not None:
             # loss = self.crf.calculate_loss(emissions=logits, tags=label_ids, mask=context_input_mask)
             loss = self.crf.calculate_loss(logits, tag_list=label_ids, lengths=context_input_len)

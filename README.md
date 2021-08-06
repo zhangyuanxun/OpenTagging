@@ -26,3 +26,18 @@ python src/main.py --do_train --do_eval --num_train_epochs 10
         "predict value": "monocular"
 },
 ```
+
+### Model Serving
+Model is served via a REST API with Flask,
+```
+python src/app.py
+```
+
+#### cURL request
+```
+curl -X POST http://0.0.0.0:8005/predict -H 'Content-Type: application/json' -d '{ "context": "Mens Womens Riding Cycling Socks Bicycle sports socks Breathable Anti-sweat Socks Basketball Football Socks", "attribute": "Hose Height"}'
+```
+#### Output
+```
+{"result":[{"context":"[CLS] mens womens riding cycling socks bicycle sports socks breathable anti - sweat socks basketball football socks [SEP] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]","position":[7,7],"tokens":["[CLS]","men","##s","women","##s","riding","cycling","socks","bicycle","sports","socks","breath","##able","anti","-","sweat","socks","basketball","football","socks","[SEP]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]"],"value":"socks"}]}
+```
