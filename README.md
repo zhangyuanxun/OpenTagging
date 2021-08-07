@@ -39,5 +39,12 @@ curl -X POST http://0.0.0.0:8005/predict -H 'Content-Type: application/json' -d 
 ```
 #### Output
 ```
-{"result":[{"context":"[CLS] mens womens riding cycling socks bicycle sports socks breathable anti - sweat socks basketball football socks [SEP] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]","position":[7,7],"tokens":["[CLS]","men","##s","women","##s","riding","cycling","socks","bicycle","sports","socks","breath","##able","anti","-","sweat","socks","basketball","football","socks","[SEP]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]"],"value":"socks"}]}
+{
+    "result":
+            [{"value":"socks",
+            "position":[7,7],
+            "context":"[CLS] mens womens riding cycling socks bicycle sports socks breathable anti - sweat socks basketball football socks [SEP] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]",
+            "tokens":["[CLS]","men","##s","women","##s","riding","cycling","socks","bicycle","sports","socks","breath","##able","anti","-","sweat","socks","basketball","football","socks","[SEP]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]","[PAD]"]
+            }]
+}
 ```
