@@ -75,8 +75,7 @@ class TaggingProcessor(object):
     def _white_space_tokenize(self, sentence):
         tk = WhitespaceTokenizer()
         span_generator = tk.span_tokenize(sentence)
-        tokens = tk.tokenize(sentence)
-        return tokens, span_generator
+        return span_generator
 
     def _get_value_offset(self, context_words, value):
         value_words = self._word_tokenize(value)
