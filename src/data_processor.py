@@ -2,6 +2,7 @@ import os
 import json
 import copy
 import nltk
+from nltk.tokenize import WhitespaceTokenizer
 import re
 
 
@@ -70,6 +71,12 @@ class TaggingProcessor(object):
 
     def _word_tokenize(self, sentence):
         return nltk.word_tokenize(sentence)
+
+    def _white_space_tokenize(self, sentence):
+        tk = WhitespaceTokenizer()
+        span_generator = tk.span_tokenize(sentence)
+        tokens = tk.tokenize(sentence)
+        return tokens, span_generator
 
     def _get_value_offset(self, context_words, value):
         value_words = self._word_tokenize(value)
