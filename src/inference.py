@@ -78,31 +78,57 @@ class InferModel:
 
     def predict(self, context, attribute):
         dataloader = self.convert_features(context, attribute)
-        results = list()
+        results = dict()
 
-        for batch in dataloader:
-            inputs = {k: v.to(self.device) for k, v in batch.items()}
+        # for inference, there is only one item in the dataloader with idx = 0
 
-            with torch.no_grad():
-                output = self.tagging_model(**inputs)
-                preds, _ = self.tagging_model.crf.obtain_labels(output['logits'], self.id2label,
-                                                                inputs['context_input_len'])
+        batch = next(iter(dataloader))
+        inputs = {k: v.to(self.device) for k, v in batch.items()}
 
-            context_input_ids = inputs['context_input_ids']
-            for i in range(len(preds)):
-                pred_labels = get_entities(preds[i], self.id2label, 'bio')
-                if not pred_labels:
-                    continue
+        with torch.no_grad():
+            output = self.tagging_model(**inputs)
+            preds, _ = self.tagging_model.crf.obtain_labels(output['logits'], self.id2label,
+                                                            inputs['context_input_len'])
 
-                context_tokens = self.tokenizer.convert_ids_to_tokens(context_input_ids[i])
+        context_input_ids = inputs['context_input_ids']
+        idx = 0
+        pred_labels = get_entities(preds[idx], self.id2label, 'bio')
+        context_tokens = self.tokenizer.convert_ids_to_tokens(context_input_ids[idx])
+        results['context'] = self.tokenizer.convert_tokens_to_string(context_tokens)
+        results['tokens'] = context_tokens
+        results['attribute'] = attribute
+        labels = []
+        if pred_labels:
+            for j in range(len(pred_labels)):
+                pred_tokens = self.tokenizer.convert_tokens_to_string((context_tokens[pred_labels[j][1]: pred_labels[j][2] + 1]))
+                labels.append({'value': pred_tokens, 'position': [pred_labels[j][1], pred_labels[j][2]]})
 
-                for j in range(len(pred_labels)):
-                    pred_tokens = self.tokenizer.convert_tokens_to_string((context_tokens[pred_labels[j][1]: pred_labels[j][2] + 1]))
-                    results.append({'value': pred_tokens, 'position': [pred_labels[j][1], pred_labels[j][2]],
-                                    'tokens': context_tokens,
-                                    'context': self.tokenizer.convert_tokens_to_string(context_tokens)})
+        results['labels'] = labels
+        return results
 
-            return results
+        # for batch in dataloader:
+        #     inputs = {k: v.to(self.device) for k, v in batch.items()}
+        #
+        #     with torch.no_grad():
+        #         output = self.tagging_model(**inputs)
+        #         preds, _ = self.tagging_model.crf.obtain_labels(output['logits'], self.id2label,
+        #                                                         inputs['context_input_len'])
+        #
+        #     context_input_ids = inputs['context_input_ids']
+        #     for i in range(len(preds)):
+        #         pred_labels = get_entities(preds[i], self.id2label, 'bio')
+        #         if not pred_labels:
+        #             continue
+        #
+        #         context_tokens = self.tokenizer.convert_ids_to_tokens(context_input_ids[i])
+        #
+        #         for j in range(len(pred_labels)):
+        #             pred_tokens = self.tokenizer.convert_tokens_to_string((context_tokens[pred_labels[j][1]: pred_labels[j][2] + 1]))
+        #             results.append({'value': pred_tokens, 'position': [pred_labels[j][1], pred_labels[j][2]],
+        #                             'tokens': context_tokens,
+        #                             'context': self.tokenizer.convert_tokens_to_string(context_tokens)})
+        #
+        #     return results
 
 
 model = InferModel(device=DEVICE, bert_model=BERT_MODEl,

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Key-Value Extraction</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/app.css">
+    <script src="static/app.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+	<a class="navbar-brand" href="/">Key-Value Extraction</a>
+</nav>
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="noteInput">Input Note:</label>
+            <textarea type="text" class="form-control" id="noteInput" required="true" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="attributeInput">Select Attribute:</label>
+            <select class="form-control" id="attributeInput">
+                <option value="organization">Organization</option>
+                <option value="person">Person</option>
+                <option value="geopolitical">Geopolitical</option>
+                <option value="money">Money</option>
+                <option value="meters">Meters</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <br>
+    <div id="successAlert" class="alert alert-success" role="alert" style="display:none;">
+        <p className='element' id='outputNote'></p>
+        <br>
+        <p className='element' id='outputKey'></p>
+        <p className='element' id='outputValue'></p>
+    </div>
+    <div id="errorAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+</div>
+</body>
+</html>
