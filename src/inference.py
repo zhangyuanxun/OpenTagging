@@ -79,56 +79,35 @@ class InferModel:
     def predict(self, context, attribute):
         dataloader = self.convert_features(context, attribute)
         results = dict()
+        predictions = list()
 
-        # for inference, there is only one item in the dataloader with idx = 0
+        for batch in dataloader:
+            inputs = {k: v.to(self.device) for k, v in batch.items()}
 
-        batch = next(iter(dataloader))
-        inputs = {k: v.to(self.device) for k, v in batch.items()}
+            with torch.no_grad():
+                output = self.tagging_model(**inputs)
+                preds, _ = self.tagging_model.crf.obtain_labels(output['logits'], self.id2label,
+                                                                inputs['context_input_len'])
 
-        with torch.no_grad():
-            output = self.tagging_model(**inputs)
-            preds, _ = self.tagging_model.crf.obtain_labels(output['logits'], self.id2label,
-                                                            inputs['context_input_len'])
+            for i in range(len(preds)):
+                context_input_ids = inputs['context_input_ids'][i]
+                context_tokens = self.tokenizer.convert_ids_to_tokens(context_input_ids)
+                context = self.tokenizer.convert_tokens_to_string(context_tokens)
+                labels = []
 
-        context_input_ids = inputs['context_input_ids']
-        idx = 0
-        pred_labels = get_entities(preds[idx], self.id2label, 'bio')
-        context_tokens = self.tokenizer.convert_ids_to_tokens(context_input_ids[idx])
-        results['context'] = self.tokenizer.convert_tokens_to_string(context_tokens)
-        results['tokens'] = context_tokens
-        results['attribute'] = attribute
-        labels = []
-        if pred_labels:
-            for j in range(len(pred_labels)):
-                pred_tokens = self.tokenizer.convert_tokens_to_string((context_tokens[pred_labels[j][1]: pred_labels[j][2] + 1]))
-                labels.append({'value': pred_tokens, 'position': [pred_labels[j][1], pred_labels[j][2]]})
+                pred_labels = get_entities(preds[i], self.id2label, 'bio')
+                if not pred_labels:
+                    continue
 
-        results['labels'] = labels
+                for j in range(len(pred_labels)):
+                    pred_tokens = self.tokenizer.convert_tokens_to_string(
+                        (context_tokens[pred_labels[j][1]: pred_labels[j][2] + 1]))
+                    labels.append({'value': pred_tokens, 'position': [pred_labels[j][1], pred_labels[j][2]]})
+
+                predictions.append({"context": context, "tokens": context_tokens, "labels": labels})
+        results["attribute"] = attribute
+        results["predictions"] = predictions
         return results
-
-        # for batch in dataloader:
-        #     inputs = {k: v.to(self.device) for k, v in batch.items()}
-        #
-        #     with torch.no_grad():
-        #         output = self.tagging_model(**inputs)
-        #         preds, _ = self.tagging_model.crf.obtain_labels(output['logits'], self.id2label,
-        #                                                         inputs['context_input_len'])
-        #
-        #     context_input_ids = inputs['context_input_ids']
-        #     for i in range(len(preds)):
-        #         pred_labels = get_entities(preds[i], self.id2label, 'bio')
-        #         if not pred_labels:
-        #             continue
-        #
-        #         context_tokens = self.tokenizer.convert_ids_to_tokens(context_input_ids[i])
-        #
-        #         for j in range(len(pred_labels)):
-        #             pred_tokens = self.tokenizer.convert_tokens_to_string((context_tokens[pred_labels[j][1]: pred_labels[j][2] + 1]))
-        #             results.append({'value': pred_tokens, 'position': [pred_labels[j][1], pred_labels[j][2]],
-        #                             'tokens': context_tokens,
-        #                             'context': self.tokenizer.convert_tokens_to_string(context_tokens)})
-        #
-        #     return results
 
 
 model = InferModel(device=DEVICE, bert_model=BERT_MODEl,
@@ -139,3 +118,13 @@ model = InferModel(device=DEVICE, bert_model=BERT_MODEl,
 
 def get_model():
     return model
+
+
+if __name__ == "__main__":
+    model = get_model()
+
+    context = "original noeby infinite ii - pe8b1 150m 8 strands yellow fishing line high visibility braid line for fishing floating line. original noeby infinite ii - pe8b1 150m 8 strands yellow fishing line high visibility braid line for fishing floating line."
+    attribute = "meters"
+    result = model.predict(context, attribute)
+    print(result)
+

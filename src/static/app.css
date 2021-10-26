@@ -33,12 +33,12 @@
     background: rgb(166, 226, 45);
 }
 
-[data-entity][data-entity="org"] {
+[data-entity][data-entity="weight"] {
     background: rgba(67, 198, 252, 1.0);
     border-color: rgb(67, 198, 252);
 }
 
-[data-entity][data-entity="org"]::after {
+[data-entity][data-entity="weight"]::after {
     background: rgb(255, 255, 255);
 }
 
