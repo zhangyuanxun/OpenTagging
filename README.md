@@ -5,6 +5,7 @@ A Pytorch implementation of "Scaling Up Open Tagging from Tens to Thousands: Com
 ### Requirements:
 * Pytorch>=1.9.0
 * Python3.8
+* transformers 4.8.1
 
 ### Train and Evaluate
 ```
